@@ -1,9 +1,12 @@
 import streamlit as st
 import random
 
+# 🎨 Random background color themes
 themes = ["#ffcccc", "#ccffcc", "#ccccff", "#ffffcc", "#e0ccff", "#ffe0cc"]
 bg_color = random.choice(themes)
 
+# 🌈 Set page and background style
+st.set_page_config(page_title="Auto Calc", page_icon="🧮", layout="centered")
 st.markdown(
     f"""
     <style>
@@ -12,17 +15,22 @@ st.markdown(
         padding: 20px;
     }}
     </style>
-    """, unsafe_allow_html=True)
+    """,
+    unsafe_allow_html=True
+)
 
-st.set_page_config(page_title="Auto Calc", page_icon="🧮", layout="centered")
-st.title("Auto Calc")
-st.markdown("Enter **Multiple Numbers** and choose the operator.")
+# 📌 Title and instruction
+st.title("🧮 Auto Calc")
+st.markdown("Enter **multiple numbers** and choose the operation to perform.")
 
-number_input = st.text_input("Enter the numbers separated by commas")
+# 🧾 User input
+number_input = st.text_input("Enter numbers separated by commas")
 operation = st.selectbox("Choose Operator", ["+", "-", "*", "/"])
 
+# ⚙️ Process input
 try:
     numbers = [float(x.strip()) for x in number_input.split(",") if x.strip()]
+    
     if numbers:
         if operation == "+":
             result = sum(numbers)
@@ -40,14 +48,15 @@ try:
                 if num == 0:
                     raise ZeroDivisionError
                 result /= num
+        
         st.success(f"✅ Result: {result}")
     else:
-        st.warning("👀 Please enter at least one number.")
-except ZeroDivisionError:python -m streamlit run AutoCalc.py
+        st.warning("⚠️ Please enter at least one number.")
 
+except ZeroDivisionError:
     st.error("🚨 Division by zero is not allowed!")
+
 except:
     st.error("⚠️ Invalid Input!")
-
                     
         
